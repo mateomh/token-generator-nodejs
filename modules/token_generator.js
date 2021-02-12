@@ -18,7 +18,8 @@ function generateToken(key, appID, userName, expiresInSeconds, vCard = '') {
     shaObj.update(body);
     var mac = shaObj.getHMAC("HEX");
     var serialized = body + '\0' + mac;
-    console.log("\nGenerated Token: \n" + btoa(serialized));
+    // console.log("\nGenerated Token: \n" + btoa(serialized));
+    return btoa(serialized);
 }
 
 //Date is in the format: "October 13, 2014 11:13:00"
@@ -33,7 +34,7 @@ function generateTokenExpiresOnDate(key, appID, userName, date) {
         expiresInSeconds = dateInSeconds - nowInSeconds;
         console.log("Expires in seconds: " + expiresInSeconds);
     }
-    generateToken(key, appID, userName, expiresInSeconds);
+    return generateToken(key, appID, userName, expiresInSeconds);
 }
 
 module.exports = { generateToken, generateTokenExpiresOnDate };
