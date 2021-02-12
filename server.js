@@ -1,7 +1,14 @@
-const Token = require('./modules/token_generator');
+const fs = require('fs');
+const https = require('https');
 const express = require('express');
 
+const Token = require('./modules/token_generator');
+
+const secure_key = fs.readFileSync('./key.pem');
+const cert = fs.readFileSync('./cert.pem');
+
 const app = express();
+const server = https.createServer({key: secure_key, cert: cert }, app);
 const server_port = 3000;
 
 const key = 'rUlaMASgt1Byi4Kp3sKYDeQzo';
@@ -19,4 +26,5 @@ app.get('/', (request, response) => {
   response.send({ token });
 });
 
-app.listen(server_port, () => console.log(`Server Started on port ${server_port}`));
+// app.listen(server_port, () => console.log(`Server Started on port ${server_port}`));
+server.listen(server_port, () => console.log(`Server Started on port ${server_port}`));
