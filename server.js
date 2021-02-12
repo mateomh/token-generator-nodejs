@@ -10,7 +10,6 @@ const userName = 'user1';
 const expires = 10000;
 
 app.get('/', (request, response) => {
-  console.log('Request', Token);
   response.send('<h1>Hello from node</h1>');
   const token = Token.generateToken(key, appId, userName, expires);
 });
